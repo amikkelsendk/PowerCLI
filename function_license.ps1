@@ -10,7 +10,7 @@
   - Add custom named labels to vSphere licenses
   - Remove custom named labels
 .INPUTS
-  n/a
+  n/a 
 .OUTPUTS
   Outputs to screen
 .NOTES
