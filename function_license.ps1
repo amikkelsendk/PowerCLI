@@ -14,13 +14,9 @@
 .OUTPUTS
   Outputs to screen
 .NOTES
-  Version:        1.0
-  Author:         Anders Mikkelsen, www.amikkelsen.com, https://twitter.com/AMikkelsenDK
+  website:	  www.amikkelsen.com
+  Author:         Anders Mikkelsen
   Creation Date:  2019-01-28
-
-  Change log:
-  Version 	Date		Creator     	  Change Description
-  1.0		2019-01-28	A. Mikkelsen		Initial script
   
   Known bugs:
 	n/a
