@@ -36,8 +36,11 @@ Function Get-ContentLibrary {
             $library = $contentLibraryService.get($libraryID)
     
             # Use vCenter REST API to retrieve name of Datastore that is backing the Content Library
-            $datastoreService = Get-CisService com.vmware.vcenter.datastore
-            $datastore = $datastoreService.get($library.storage_backings.datastore_id)
+            # Updated by AMikkelsenDK to not thrown error when library is not backed by an vCenter Datastore
+            $datastoreService = [void](Get-CisService com.vmware.vcenter.datastore)
+            if($datastoreService){
+                $datastore = $datastoreService.get($library.storage_backings.datastore_id)
+            }
     
             if($library.publish_info.published) {
                 $published = $library.publish_info.published
