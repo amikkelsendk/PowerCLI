@@ -102,6 +102,7 @@ Function Get-ContentLibraryItems {
     Organization:  VMware
     Blog:          www.virtuallyghetto.com
     Twitter:       @lamw
+    Modified by    A. Mikkelsen / @AMikkelsenDK / https://github.com/amikkelsendk
     ===========================================================================
     .DESCRIPTION
         This function lists all items within a given vSphere Content Library
@@ -137,7 +138,9 @@ Function Get-ContentLibraryItems {
                         Name = $item.name;
                         Id = $item.id;
                         Description = $item.description;
-                        Size = $item.size
+                        Size = $item.size;
+                        Created = $item.creation_time;
+                        LastModified =  $item.last_modified_time;
                         Type = $item.type;
                         Version = $item.version;
                         MetadataVersion = $item.metadata_version;
@@ -150,7 +153,9 @@ Function Get-ContentLibraryItems {
                             Name = $item.name;
                             Id = $item.id;
                             Description = $item.description;
-                            Size = $item.size
+                            Size = $item.size;
+                            Created = $item.creation_time;
+                            LastModified =  $item.last_modified_time;
                             Type = $item.type;
                             Version = $item.version;
                             MetadataVersion = $item.metadata_version;
