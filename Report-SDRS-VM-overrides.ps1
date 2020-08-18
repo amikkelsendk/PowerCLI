@@ -1,11 +1,31 @@
-# Thanks to Ryanjan
-# https://ryanjan.uk/2018/07/30/storage-drs-and-powercli-part-1-get-vm-overrides/
+<#
+.SYNOPSIS
+  Reports on VM where SDRS overrides are configured 
+.DESCRIPTION
+  Reports on VM where SDRS overrides are configured 
+.INPUTS
+  n/a 
+.OUTPUTS
+  Outputs to screen
+.NOTES
+  website:	      www.amikkelsen.com
+  Author:         Anders Mikkelsen
+  Creation Date:  2020-08-18
+  
+  Tested on vSphere 6.7 U3
+	
+  1. Change <vcenter server> to you own vCenter
+  2. Change <SDRS cluster name> to your own SDRS cluster
+  
+  Thanks to Ryanjan
+  https://ryanjan.uk/2018/07/30/storage-drs-and-powercli-part-1-get-vm-overrides/
+#>
 
 cls
 connect-viserver <vcenter>
 
 $StoragePod = Get-View -ViewType "StoragePod" -Filter @{"Name" = "<SDRS cluster name>"}
-$StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig
+#$StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig
 
 $VMOverrides = $StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig | Where-Object {
     -not (
