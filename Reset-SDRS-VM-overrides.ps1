@@ -25,38 +25,49 @@
 
 
 cls
-connect-viserver <vcenter server>
 
-$StoragePod = Get-View -ViewType "StoragePod" -Filter @{"Name" = "<SDRS cluster name>"}
+$strvCenter     = "<vcenter server>"
+$strSDRSCluster = "<SDRS cluster name>"
+
+connect-viserver $strvCenter
+
+#$StoragePod = Get-View -ViewType "StoragePod" -Filter @{"Name" = $strSDRSCluster}              # Without RegEx anchor points, filter acts like a wildcard
+$StoragePod = Get-View -ViewType "StoragePod" -Filter @{"Name" = "^$strSDRSCluster$"}           # RegEx anchor points added, for Exact Match
 #$StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig
 
-$VMOverrides = $StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig | Where-Object {
-    -not (
-        ($_.Enabled -eq $null) -and
-        ($_.IntraVmAffinity -eq $null)
-    )
-}
-
-foreach ($Override in $VMOverrides) {
-    $row = '' | select VMName
-	$vmMo = Get-View $Override.Vm
-
-    if($Override.Enabled -ne $null -or $Override.IntraVmAffinity -ne $null){
-	    $spec = New-Object VMware.Vim.StorageDrsConfigSpec
-	    $spec.vmConfigSpec = New-Object VMware.Vim.StorageDrsVmConfigSpec[] (1)
-	    $spec.vmConfigSpec[0] = New-Object VMware.Vim.StorageDrsVmConfigSpec
-	    $spec.vmConfigSpec[0].operation = 'add'
-	    $spec.vmConfigSpec[0].info = New-Object VMware.Vim.StorageDrsVmConfigInfo
-        $spec.vmConfigSpec[0].info.enabled = $null
-	    $spec.vmConfigSpec[0].info.vm = $Override.Vm;
-        $spec.vmConfigSpec[0].info.IntraVmAffinity = $null;
-	    $_this = Get-View -Id 'StorageResourceManager-StorageResourceManager'
-        $_this.ConfigureStorageDrsForPod_Task($StoragePod.MoRef, $spec, $true)
-	    Write-Host "SDRS is re-enabled on this VM :" $vmMo.Name 
-    }
-    else{
-        Write-Host "SDRS was already set to Default on VM :" $vmMo.Name 
+if($StoragePod.Count -eq 1)
+{
+	$VMOverrides = $StoragePod.PodStorageDrsEntry.StorageDrsConfig.VmConfig | Where-Object {
+		-not (
+			($_.Enabled -eq $null) -and
+			($_.IntraVmAffinity -eq $null)
+		)
 	}
+
+	foreach ($Override in $VMOverrides) {
+		$row = '' | select VMName
+		$vmMo = Get-View $Override.Vm
+
+		if($Override.Enabled -ne $null -or $Override.IntraVmAffinity -ne $null){
+			$spec = New-Object VMware.Vim.StorageDrsConfigSpec
+			$spec.vmConfigSpec = New-Object VMware.Vim.StorageDrsVmConfigSpec[] (1)
+			$spec.vmConfigSpec[0] = New-Object VMware.Vim.StorageDrsVmConfigSpec
+			$spec.vmConfigSpec[0].operation = 'add'
+			$spec.vmConfigSpec[0].info = New-Object VMware.Vim.StorageDrsVmConfigInfo
+			$spec.vmConfigSpec[0].info.enabled = $null
+			$spec.vmConfigSpec[0].info.vm = $Override.Vm;
+			$spec.vmConfigSpec[0].info.IntraVmAffinity = $null;
+			$_this = Get-View -Id 'StorageResourceManager-StorageResourceManager'
+			$_this.ConfigureStorageDrsForPod_Task($StoragePod.MoRef, $spec, $true)
+			Write-Host "SDRS is re-enabled on this VM :" $vmMo.Name 
+		}
+		else{
+			Write-Host "SDRS was already set to Default on VM :" $vmMo.Name 
+		}
+	}
+}
+else{
+    Write-Host "Found $($StoragePod.Count) storage clusters... Only expection 1" -ForegroundColor Red
 }
 
 disconnect-viserver * -confirm:$false
