@@ -41,7 +41,7 @@ foreach ($Override in $VMOverrides) {
     $row = '' | select VMName
 	$vmMo = Get-View $Override.Vm
 
-    if($Override.Enabled -ne $null){
+    if($Override.Enabled -ne $null -or $Override.IntraVmAffinity -ne $null){
 	    $spec = New-Object VMware.Vim.StorageDrsConfigSpec
 	    $spec.vmConfigSpec = New-Object VMware.Vim.StorageDrsVmConfigSpec[] (1)
 	    $spec.vmConfigSpec[0] = New-Object VMware.Vim.StorageDrsVmConfigSpec
