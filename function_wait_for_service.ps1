@@ -2,7 +2,7 @@ Function wait_for_service {
 <#
     .NOTES
     ===========================================================================
-    Created by:    Anders Mikkelsem
+    Created by:    Anders Mikkelsen
     Organization:  NetIT Services
     Twitter:       @AMikkelsenDK
     ===========================================================================
