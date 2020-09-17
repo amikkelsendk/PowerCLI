@@ -14,7 +14,7 @@
 .OUTPUTS
   Outputs to screen
 .NOTES
-  website:	  www.amikkelsen.com
+  Website:	  www.amikkelsen.com
   Author:         Anders Mikkelsen
   Creation Date:  2019-01-28
   
