@@ -3,7 +3,7 @@ function Get-VCSAHealth {
     .NOTES
     ===========================================================================
     Created by:    Anders Mikkelsen
-    Organization:  NetIT Services
+    Website:       www.amikkelsen.com
     Twitter:       @AMikkelsenDK
 
     Tested on:     VCSA 6.7 U3
@@ -17,10 +17,10 @@ function Get-VCSAHealth {
     .EXAMPLE
         Get-VCSAHealth -vCenterServer myvcsa.test.local -Credentials Get-Credential
 
-    Known Issues:
-    Ensure to Enable TLS 1.0, 1.1 & 1.2
-    Run:
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12
+        Known Issues:
+        Ensure to Enable TLS 1.0, 1.1 & 1.2
+        Run:
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12
 #>
 
     param (

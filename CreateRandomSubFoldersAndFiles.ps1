@@ -19,7 +19,7 @@
   
 #>
 
-cls
+Clear-Host
 
 #$APP_INSTANCE_FOLDER = "C:\Scripts\Test-Data"
 $APP_INSTANCE_FOLDER = $PSScriptRoot

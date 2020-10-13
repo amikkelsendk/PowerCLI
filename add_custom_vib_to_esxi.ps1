@@ -16,7 +16,6 @@
   Creation Date:  2020-09-21
   
   Tested on vSphere 7.0b
-
 #>
 Clear-Host
 
