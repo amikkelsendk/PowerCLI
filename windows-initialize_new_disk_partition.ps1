@@ -33,6 +33,6 @@ Foreach($objDisk in $arrNewDisks)
   $objPartition = Get-Disk -Number $thisDiskNo | Initialize-Disk -PartitionStyle "GPT" -PassThru | New-Partition -AssignDriveLetter -UseMaximumSize
   
   # Format partition
-  Format-Volume -DriveLetter $objPartition.DriveLetter -FileSystem "NTFS" -Confirm:$false
+  Format-Volume -DriveLetter $objPartition.DriveLetter -FileSystem "NTFS" -NewFileSystemLabel "Disk $thisDiskNo" -Confirm:$false
 
 }
