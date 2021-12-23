@@ -21,6 +21,9 @@
     https://stackoverflow.com/questions/54564566/powershell-script-to-initialize-all-new-drives-format-and-give-them-labels-in
 #>
 
+# Rescan Storage/Disks
+Update-HostStorageCache
+
 # Get list of new disks
 $arrNewDisks = Get-Disk | Where-Object{$_.OperationalStatus -eq "Offline" -and $_.PartitionStyle -eq "RAW"}
 
