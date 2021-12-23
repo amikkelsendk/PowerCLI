@@ -19,6 +19,7 @@
 
     Credits to:
     https://stackoverflow.com/questions/54564566/powershell-script-to-initialize-all-new-drives-format-and-give-them-labels-in
+    https://4sysops.com/archives/managing-disks-with-powershell/
 #>
 
 # Rescan Storage/Disks
@@ -27,7 +28,7 @@ Update-HostStorageCache
 # Get list of new disks
 $arrNewDisks = Get-Disk | Where-Object{$_.OperationalStatus -eq "Offline" -and $_.PartitionStyle -eq "RAW"}
 
-Foreach($objDisk in $arrNewDisks)
+Foreach($objDisk In $arrNewDisks)
 {
   # Get disk number
   $thisDiskNo = $objDisk.Number
