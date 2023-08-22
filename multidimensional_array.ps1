@@ -61,7 +61,7 @@ $arrNestedHashTables = @{}
 $arrNestedHashTables["Cities"] = @{}
 $arrNestedHashTables["Cities"]["Chicago"] = @{ Country = "USA"; Population = "8 mil" }
 $arrNestedHashTables["Cities"]["New York"] = @{ Country = "USA"; Population = "15 mil" }
-$arrNestedHashTables["County"] = @()
+$arrNestedHashTables["Country"] = @()
 $arrNestedHashTables["Country"] += ${ Name = "USA"; Language = "English"}
 $arrNestedHashTables["Country"] += ${ Name = "Germany"; Language = "German"}
 
