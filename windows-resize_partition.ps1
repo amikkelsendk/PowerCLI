@@ -27,29 +27,35 @@ Update-HostStorageCache
 # Get list of disks
 $arrDisks = Get-Disk | Where-object{$_.OperationalStatus -eq "Online" -and $_.PartitionStyle -eq "GPT"}
 
-Foreach($objDisk In $arrDisks ){
+Foreach ( $objDisk In $arrDisks ) {
   Write-Host "Disk: $($objDisk.Number)"
   $arrPartitions = $objDisk | Get-Partition
 
-  Foreach( $objPartition In $arrPartitions){
-    $thisPartitionDriveLetter = $objPartition.DriveLetter
-    $thisPartitionDiskSize = $objPartition.Size
-      
-    If($thisPartitionDriveLetter){
-      Write-Host "  DriveLetter:  $thisPartitionDriveLetter"
-      Write-Host "  Current Size: $thisPartitionDiskSize"
-      
-      $thisPartitionDiskMaxSize = (Get-PartitionSupportedSize -DriveLetter $thisPartitionDriveLetter).SizeMax
+  If ( $arrPartitions.Count -eq 1 ) {
+    Foreach ( $objPartition In $arrPartitions ) {
+      $thisPartitionDriveLetter = $objPartition.DriveLetter
+      $thisPartitionDiskSize = $objPartition.Size
+        
+      #If ( $thisPartitionDriveLetter ) {
+      If ( ( $thisPartitionDriveLetter ) -and ( $thisPartitionDriveLetter -ne "C" ) ) {
+        Write-Host "  DriveLetter:  $thisPartitionDriveLetter"
+        Write-Host "  Current Size: $thisPartitionDiskSize"
+        
+        $thisPartitionDiskMaxSize = ( Get-PartitionSupportedSize -DriveLetter $thisPartitionDriveLetter ).SizeMax
 
-      # Only if new size is 1GB larger 
-      $thisSizeGB    = [math]::Round($thisPartitionDiskSize/1024/1024/1024, 2)
-      $thisSizeMaxGB = [math]::Round($thisPartitionDiskMaxSize/1024/1024/1024, 2)
+        # Only if new size is 1GB larger 
+        $thisSizeGB    = [math]::Round( $thisPartitionDiskSize/1024/1024/1024, 2 )
+        $thisSizeMaxGB = [math]::Round( $thisPartitionDiskMaxSize/1024/1024/1024, 2 )
 
-      If($thisSizeGB -lt $thisSizeMaxGB){
-        # Resize partition to MAX
-        Write-Host "  New size:     $thisPartitionDiskMaxSize"
-        Resize-Partition -DriveLetter $thisPartitionDriveLetter -Size $thisPartitionDiskMaxSize -Confirm:$false
+        If ( $thisSizeGB -lt $thisSizeMaxGB ) {
+          # Resize partition to MAX
+          Write-Host "  New size:     $thisPartitionDiskMaxSize"
+          Resize-Partition -DriveLetter $thisPartitionDriveLetter -Size $thisPartitionDiskMaxSize -Confirm:$false
+        }
       }
     }
+  }
+  Else{
+    Write-Host "  !! has 0 or more than 1 partition !!"
   }
 }
