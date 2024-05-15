@@ -4,11 +4,14 @@
 .DESCRIPTION
     Configure computer to accept WinRm HTTPS
 .NOTES
-    website:	      www.amikkelsen.com
+    website:        www.amikkelsen.com
     Author:         Anders Mikkelsen
     Creation Date:  2024-05-15
 
-    Credits To: # https://www.visualstudiogeeks.com/devops/how-to-configure-winrm-for-https-manually
+    Credits To: 
+    - https://www.visualstudiogeeks.com/devops/how-to-configure-winrm-for-https-manually
+    - https://learn.microsoft.com/en-us/powershell/module/microsoft.wsman.management/enable-wsmancredssp?view=powershell-7.4#examples
+
 #>
 
 # Run commands on the computer to enable WINRM HTTPS on
@@ -30,6 +33,11 @@ winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="' + $t
 # Add new WinRM HTTPS Listener firewall rule
 $thisPort = "5986"
 netsh advfirewall firewall add rule name="Windows Remote Management (HTTPS-In)" dir=in action=allow protocol=TCP localport=$thisPort
+
+
+### Only needed to enable Multi-Hop Support
+#Enable-WSManCredSSP -Role "Server"
+
 
 
 
