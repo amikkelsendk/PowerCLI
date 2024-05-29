@@ -19,18 +19,24 @@
     Credits to:
     https://www.progress.com/blogs/the-infamous-double-hop-problem-in-powershell
     https://4sysops.com/archives/solve-the-powershell-multi-hop-problem-without-using-credssp/
+    https://www.syxsense.com/syxsense-securityarticles/windows_policies/syx-1016-11188.html
 #>
 
-# Create a new Session Configuration
+#### Create a new Session Configuration ###
 # Must be run/executed with administrative priviliges 
 $SessionConfigName = "AdCheck"
 $CredUserName = "<domain>\<username>"
 Register-PSSessionConfiguration -Name $SessionConfigName -RunAsCredential $CredUserName -Force
 
-# Check if created and what PowerShell version it's configured under
+# If above command produces an error - to Disable "Disallow WinRM from storing RunAs credentials", follow the link below
+# https://www.syxsense.com/syxsense-securityarticles/windows_policies/syx-1016-11188.html
+
+
+### Check if created and what PowerShell version it's configured under ###
 Get-PSSessionConfiguration
 
-## Test fix ##
+
+### Test fix ###
 # Create a file to test with 
 # Example:
 # Path:     c:\get_ad.ps1
