@@ -15,6 +15,8 @@
     Tested on:
     - Windows Server 2019
     - VMware Automation 8.16.2
+    - PowerShell 5.1 
+    - PowerShell 7.4
 
     Credits to:
     https://www.progress.com/blogs/the-infamous-double-hop-problem-in-powershell
@@ -24,6 +26,7 @@
 
 #### Create a new Session Configuration ###
 # Must be run/executed with administrative priviliges 
+# Must be run for each PowerShell version you want to be able to conect with 5.1 &or 7.4 (run in each required console)
 $SessionConfigName = "AdCheck"
 $CredUserName = "<domain>\<username>"
 Register-PSSessionConfiguration -Name $SessionConfigName -RunAsCredential $CredUserName -Force
