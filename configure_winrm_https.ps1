@@ -36,7 +36,7 @@ $certLifetime = 5       # years
 $myCert       = New-SelfSignedCertificate -CertStoreLocation cert:\localmachine\my -DnsName ($thisFQDN, $thisHostname) -NotAfter (get-date).AddYears($certLifetime) -Provider "Microsoft RSA SChannel Cryptographic Provider" -KeyLength 2048
 
 # Configure WinRM HTTPS listner
-winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="' + $thisFQDN + '"; CertificateThumbprint="' + $myCert.Thumbprint + '"}'
+winrm create winrm/config/Listener?Address=*+Transport=HTTPS """@{Hostname=$thisFQDN; CertificateThumbprint=$($myCert.Thumbprint)}"""
 
 # Add new WinRM HTTPS Listener firewall rule
 $thisPort = "5986"
