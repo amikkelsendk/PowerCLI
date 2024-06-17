@@ -6,7 +6,7 @@
 .NOTES
     website:        www.amikkelsen.com
     Author:         Anders Mikkelsen
-    Creation Date:  2024-05-15
+    Creation Date:  2024-06-17
 
     Credits To: 
     - https://www.visualstudiogeeks.com/devops/how-to-configure-winrm-for-https-manually
@@ -22,10 +22,14 @@
 # Run commands on the computer to enable WINRM HTTPS on
 # Must be executed with admin priviliges
 
-# What listner is currently configured
+# Enable WinRM HTTP Listner - If required !!
+winrm quickconfig
+
+# What listners is currently configured
 winrm enumerate winrm/config/listener
 
 # Remove HTTP Listner - If required !!
+# HTTP Listner is required to mitigate WinRM - DoubleHop bypass
 Get-ChildItem WSMan:\Localhost\listener | Where-Object -Property Keys -eq "Transport=HTTP" | Remove-Item -Recurse
 
 # Create HTTPS cert
@@ -44,9 +48,6 @@ netsh advfirewall firewall add rule name="Windows Remote Management (HTTPS-In)" 
 
 # Disable WinRM HTTP Listener firewall rule - If required !!
 Disable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
-
-### Only needed to enable Multi-Hop Support
-#Enable-WSManCredSSP -Role "Server"
 
 
 

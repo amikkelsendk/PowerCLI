@@ -18,10 +18,16 @@
     - PowerShell 5.1 
     - PowerShell 7.4
 
+    IMPORTANT !!!!
+    Ensure WinRM HTTP & HTTPS is enabled
+    Make sure UAC is disabled or set to "Never Notify" for the target script/util server
+
     Credits to:
     https://www.progress.com/blogs/the-infamous-double-hop-problem-in-powershell
     https://4sysops.com/archives/solve-the-powershell-multi-hop-problem-without-using-credssp/
     https://www.syxsense.com/syxsense-securityarticles/windows_policies/syx-1016-11188.html
+
+    https://answers.microsoft.com/en-us/windows/forum/all/disable-uac-using-powershell/6f37a6f6-fedc-475d-ad4b-cf724d6d91bf
 #>
 
 #### Create a new Session Configuration ###
