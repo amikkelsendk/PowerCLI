@@ -609,13 +609,15 @@ $vm = Get-VM $vmName
 
 ## Exit Screensaver
 Set-VMKeystrokes -VMName $vm -SpecialKeyInput "KeyESC" | Out-Null
+# or
+Set-VMKeystrokesNEW -VMName $vm -StringInput "{esc}" 
 
 ## Login
 Set-VMKeystrokes -VMName $vm -StringInput "<password>" | Out-Null
 Set-VMKeystrokes -VMName $vm -SpecialKeyInput "KeyEnter" | Out-Null
 Start-Sleep -Seconds 5
 # or
-Set-VMKeystrokesNEW -VMName $vm -StringInput "password>{enter}" 
+Set-VMKeystrokesNEW -VMName $vm -StringInput "<password>{enter}" 
 Start-Sleep -Seconds 5
 
 ## Open Ubuntu terminal
