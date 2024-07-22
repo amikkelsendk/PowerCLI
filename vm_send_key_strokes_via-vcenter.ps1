@@ -604,7 +604,7 @@ Function Set-VMKeystrokesNEW {
     }
 }
 
-$vmName = "coto.dcdemo.dom"
+$vmName = "MyTestVM"
 $vm = Get-VM $vmName
 
 ## Exit Screensaver
