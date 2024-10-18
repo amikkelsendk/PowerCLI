@@ -11,7 +11,7 @@
   website:	      www.amikkelsen.com
   Author:         Anders Mikkelsen
   Creation Date:  2023-07-13
-  Updated Date:   
+  Updated Date:   2024-10-18
   Known bugs:
 	n/a
 
@@ -24,13 +24,16 @@ Clear-Host
 
 $StringToBase64Endode = "TextToEncode"
 
-# Encode
-#[Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($StringToBase64Endode))
-$Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($StringToBase64Endode))
+## Encode
+# $Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($StringToBase64Endode))
+# or 
+$Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($StringToBase64Endode))
 
-# Decode
-#[System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($Base64EncodedString))
-$Base64DecodedString = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($Base64EncodedString))
+## Decode
+#$Base64DecodedString = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($Base64EncodedString))
+# or
+$Base64DecodedString = [System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($Base64EncodedString))
+
 If ( $StringToBase64Endode -eq $Base64DecodedString ) {
     Write-Host "Strings are the same: $Base64DecodedString" -ForegroundColor Green
 }
