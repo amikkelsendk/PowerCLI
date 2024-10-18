@@ -3,6 +3,8 @@ Get-Date
 
 ( (Get-Date).AddHours(-1) ) 
 
+Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
 # Last full Hour
 $dateNow = Get-Date
 $dateLastHour = ( $dateNow.AddHours(-1) )
