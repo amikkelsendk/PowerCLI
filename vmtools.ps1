@@ -1,5 +1,3 @@
-
-
 ## Create Credentials
 $userName       = "<domain\username>"
 $userPasswd     = "**********"
