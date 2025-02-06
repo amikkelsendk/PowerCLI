@@ -59,14 +59,18 @@ $targetComputer     = "<vm name in vCenter>"
 $guestUserName      = "<domain\username>"
 $guestUserPasswd    = "**********"
 $sourceFiles        = ( "C:\testfile001.txt", "C:\testfile002.txt" )
-$destinationPath    = "C:\temp"
+$destinationPath    = "C:\temp\"
 $objVM              = Get-VM -Name $targetComputer
 
 # Copy local files to the guest virtual machine
-Get-Item -FilePath $sourceFiles | Copy-VMGuestFile -Destination $destinationPath -VM $objVM -LocalToGuest -Force -Credential $guestCredentials
+Get-Item -Path "C:\testfile001.txt" | Copy-VMGuestFile -Destination $destinationPath -VM $objVM -LocalToGuest -Force -GuestCredential $guestCredentials
+Get-Item -Path "C:\files\*" | Copy-VMGuestFile -Destination $destinationPath -VM $objVM -LocalToGuest -Force -GuestCredential $guestCredentials
+Get-Item -Path $sourceFiles | Copy-VMGuestFile -Destination $destinationPath -VM $objVM -LocalToGuest -Force -GuestCredential $guestCredentials
+Copy-VMGuestFile -Source $( Get-Item -Path $sourceFiles ) -Destination $destinationPath -VM $objVM -LocalToGuest -Force -GuestCredential $guestCredentials
+
 
 # Copy files from the guest virtual machine to a local directory.
-Copy-VMGuestFile -Source $sourceFiles -Destination $destinationPath -VM $objVM -GuestToLocal -Force -Credential $guestCredentials
+Copy-VMGuestFile -Source "C:\testfile001.txt" -Destination $destinationPath -VM $objVM -GuestToLocal -Force -GuestCredential $guestCredentials
 
 
 ## Disconnect-VIServer
