@@ -28,11 +28,15 @@ $StringToBase64Endode = "TextToEncode"
 # $Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($StringToBase64Endode))
 # or 
 $Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($StringToBase64Endode))
+# or
+#$Base64EncodedString = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($StringToBase64Endode))
 
 ## Decode
 #$Base64DecodedString = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($Base64EncodedString))
 # or
 $Base64DecodedString = [System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($Base64EncodedString))
+# or
+#$Base64DecodedString = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($Base64EncodedString))
 
 If ( $StringToBase64Endode -eq $Base64DecodedString ) {
     Write-Host "Strings are the same: $Base64DecodedString" -ForegroundColor Green
